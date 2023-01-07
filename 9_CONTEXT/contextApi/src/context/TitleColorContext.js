@@ -3,7 +3,14 @@ import { createContext, useReducer } from "react";
 export const TitleColorContext = createContext();
 
 export const titleColorReducer = (state, action) => {
-  //switch
+  switch (action.type) {
+    case "RED":
+      return { ...state, color: "red" };
+    case "BLUE":
+      return { ...state, color: "blue" };
+    default:
+      return state;
+  }
 };
 
 export const TitleColorProvider = ({ children }) => {
@@ -12,6 +19,8 @@ export const TitleColorProvider = ({ children }) => {
   console.log("Title color text:", state);
 
   return (
-    <TitleColorProvider value={{ ...state }}>{children}</TitleColorProvider>
+    <TitleColorProvider value={{ ...state, dispatch }}>
+      {children}
+    </TitleColorProvider>
   );
 };
